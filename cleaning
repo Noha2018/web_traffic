@@ -1,0 +1,912 @@
+
+# coding: utf-8
+
+# ## time series for web traffic
+
+# In[1]:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+
+# #### Impor
+# coding: utf-8
+
+# ## time series for web traffic
+# coding: utf-8
+
+# ## time series for web traffic
+
+# In[1]:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+
+# #### Impor
+# coding: utf-8
+
+# ## time series for web traffic
+
+# In[1]:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+
+# #### Importing the dataset
+
+# In[2]:
+
+dataset = pd.read_csv('train_web.csv')
+# coding: utf-8
+
+# ## time series for web traffic
+
+# In[1]:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+
+# #### Importing the dataset
+
+# In[2]:
+
+dataset = pd.read_csv('train_web.csv')
+
+
+# In[3]:
+
+dataset.head()
+
+
+# In[4]:
+
+dataset.isnull().any().describe()
+
+
+# In[5]:
+
+dataset = dataset.fillna(0)
+
+
+# In[6]:
+
+dataset.isnull().any().describe()
+
+
+# In[7]:
+
+dataset.Page.unique()
+dataset.groupby(['Page']).count()
+
+
+# In[8]:
+
+pages = dataset['Page'].copy()
+dates = dataset.columns
+dataset.drop(['Page'],inplace=True,axis=1)
+
+
+# In[9]:
+
+data_train = dataset.stack().reset_index(level=0, drop=True).reset_index()
+
+
+# In[10]:
+
+data_train.columns = ['Date','visits']
+
+
+# In[11]:
+
+data_train.head()
+
+
+# In[12]:
+
+pages_repeat = pd.DataFrame(np.repeat(pages,550))
+
+
+# In[13]:
+
+data_train.reset_index(drop=True,inplace=True)
+pages_repeat.reset_index(drop=True,inplace=True)
+
+
+# In[14]:
+
+data_train['Page'] = pages_repeat.Page.copy()
+
+
+# In[15]:
+
+data_train.head()
+
+
+# In[16]:
+
+cols = list(data_train.columns.values)
+cols
+
+
+# In[17]:
+
+data_train = data_train[['Page', 'Date', 'visits']]
+
+
+# In[18]:
+
+data_train.head()
+
+
+# In[19]:
+
+group_by_page = data_train.groupby('Page')
+
+
+# In[20]:
+
+group_by_page.head()
+
+
+
+
+# In[3]:
+
+dataset.head()
+
+
+# In[4]:
+
+dataset.isnull().any().describe()
+
+
+# In[5]:
+
+dataset = dataset.fillna(0)
+
+
+# In[6]:
+
+dataset.isnull().any().describe()
+
+
+# In[7]:
+
+dataset.Page.unique()
+dataset.groupby(['Page']).count()
+
+
+# In[8]:
+
+pages = dataset['Page'].copy()
+dates = dataset.columns
+dataset.drop(['Page'],inplace=True,axis=1)
+
+
+# In[9]:
+
+data_train = dataset.stack().reset_index(level=0, drop=True).reset_index()
+
+
+# In[10]:
+
+data_train.columns = ['Date','visits']
+
+
+# In[11]:
+
+data_train.head()
+
+
+# In[12]:
+
+pages_repeat = pd.DataFrame(np.repeat(pages,550))
+
+
+# In[13]:
+
+data_train.reset_index(drop=True,inplace=True)
+pages_repeat.reset_index(drop=True,inplace=True)
+
+
+# In[14]:
+
+data_train['Page'] = pages_repeat.Page.copy()
+
+
+# In[15]:
+
+data_train.head()
+
+
+# In[16]:
+
+cols = list(data_train.columns.values)
+cols
+
+
+# In[17]:
+
+data_train = data_train[['Page', 'Date', 'visits']]
+
+
+# In[18]:
+
+data_train.head()
+
+
+# In[19]:
+
+group_by_page = data_train.groupby('Page')
+
+
+# In[20]:
+
+group_by_page.head()
+
+ting the dataset
+
+# In[2]:
+
+dataset = pd.read_csv('train_web.csv')
+# coding: utf-8
+
+# ## time series for web traffic
+
+# In[1]:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+
+# #### Importing the dataset
+
+# In[2]:
+
+dataset = pd.read_csv('train_web.csv')
+
+
+# In[3]:
+
+dataset.head()
+
+
+# In[4]:
+
+dataset.isnull().any().describe()
+
+
+# In[5]:
+
+dataset = dataset.fillna(0)
+
+
+# In[6]:
+
+dataset.isnull().any().describe()
+
+
+# In[7]:
+
+dataset.Page.unique()
+dataset.groupby(['Page']).count()
+
+
+# In[8]:
+
+pages = dataset['Page'].copy()
+dates = dataset.columns
+dataset.drop(['Page'],inplace=True,axis=1)
+
+
+# In[9]:
+
+data_train = dataset.stack().reset_index(level=0, drop=True).reset_index()
+
+
+# In[10]:
+
+data_train.columns = ['Date','visits']
+
+
+# In[11]:
+
+data_train.head()
+
+
+# In[12]:
+
+pages_repeat = pd.DataFrame(np.repeat(pages,550))
+
+
+# In[13]:
+
+data_train.reset_index(drop=True,inplace=True)
+pages_repeat.reset_index(drop=True,inplace=True)
+
+
+# In[14]:
+
+data_train['Page'] = pages_repeat.Page.copy()
+
+
+# In[15]:
+
+data_train.head()
+
+
+# In[16]:
+
+cols = list(data_train.columns.values)
+cols
+
+
+# In[17]:
+
+data_train = data_train[['Page', 'Date', 'visits']]
+
+
+# In[18]:
+
+data_train.head()
+
+
+# In[19]:
+
+group_by_page = data_train.groupby('Page')
+
+
+# In[20]:
+
+group_by_page.head()
+
+
+
+
+# In[3]:
+
+dataset.head()
+
+
+# In[4]:
+
+dataset.isnull().any().describe()
+
+
+# In[5]:
+
+dataset = dataset.fillna(0)
+
+
+# In[6]:
+
+dataset.isnull().any().describe()
+
+
+# In[7]:
+
+dataset.Page.unique()
+dataset.groupby(['Page']).count()
+
+
+# In[8]:
+
+pages = dataset['Page'].copy()
+dates = dataset.columns
+dataset.drop(['Page'],inplace=True,axis=1)
+
+
+# In[9]:
+
+data_train = dataset.stack().reset_index(level=0, drop=True).reset_index()
+
+
+# In[10]:
+
+data_train.columns = ['Date','visits']
+
+
+# In[11]:
+
+data_train.head()
+
+
+# In[12]:
+
+pages_repeat = pd.DataFrame(np.repeat(pages,550))
+
+
+# In[13]:
+
+data_train.reset_index(drop=True,inplace=True)
+pages_repeat.reset_index(drop=True,inplace=True)
+
+
+# In[14]:
+
+data_train['Page'] = pages_repeat.Page.copy()
+
+
+# In[15]:
+
+data_train.head()
+
+
+# In[16]:
+
+cols = list(data_train.columns.values)
+cols
+
+
+# In[17]:
+
+data_train = data_train[['Page', 'Date', 'visits']]
+
+
+# In[18]:
+
+data_train.head()
+
+
+# In[19]:
+
+group_by_page = data_train.groupby('Page')
+
+
+# In[20]:
+
+group_by_page.head()
+
+
+
+# In[1]:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+
+# #### Importing the dataset
+
+# In[2]:
+
+dataset = pd.read_csv('train_web.csv')
+# coding: utf-8
+
+# ## time series for web traffic
+
+# In[1]:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+
+# #### Importing the dataset
+
+# In[2]:
+
+dataset = pd.read_csv('train_web.csv')
+
+
+# In[3]:
+
+dataset.head()
+
+
+# In[4]:
+
+dataset.isnull().any().describe()
+
+
+# In[5]:
+
+dataset = dataset.fillna(0)
+
+
+# In[6]:
+
+dataset.isnull().any().describe()
+
+
+# In[7]:
+
+dataset.Page.unique()
+dataset.groupby(['Page']).count()
+
+
+# In[8]:
+
+pages = dataset['Page'].copy()
+dates = dataset.columns
+dataset.drop(['Page'],inplace=True,axis=1)
+
+
+# In[9]:
+
+data_train = dataset.stack().reset_index(level=0, drop=True).reset_index()
+
+
+# In[10]:
+
+data_train.columns = ['Date','visits']
+
+
+# In[11]:
+
+data_train.head()
+
+
+# In[12]:
+
+pages_repeat = pd.DataFrame(np.repeat(pages,550))
+
+
+# In[13]:
+
+data_train.reset_index(drop=True,inplace=True)
+pages_repeat.reset_index(drop=True,inplace=True)
+
+
+# In[14]:
+
+data_train['Page'] = pages_repeat.Page.copy()
+
+
+# In[15]:
+
+data_train.head()
+
+
+# In[16]:
+
+cols = list(data_train.columns.values)
+cols
+
+
+# In[17]:
+
+data_train = data_train[['Page', 'Date', 'visits']]
+
+
+# In[18]:
+
+data_train.head()
+
+
+# In[19]:
+
+group_by_page = data_train.groupby('Page')
+
+
+# In[20]:
+
+group_by_page.head()
+
+
+
+
+# In[3]:
+
+dataset.head()
+
+
+# In[4]:
+
+dataset.isnull().any().describe()
+
+
+# In[5]:
+
+dataset = dataset.fillna(0)
+
+
+# In[6]:
+
+dataset.isnull().any().describe()
+
+
+# In[7]:
+
+dataset.Page.unique()
+dataset.groupby(['Page']).count()
+
+
+# In[8]:
+
+pages = dataset['Page'].copy()
+dates = dataset.columns
+dataset.drop(['Page'],inplace=True,axis=1)
+
+
+# In[9]:
+
+data_train = dataset.stack().reset_index(level=0, drop=True).reset_index()
+
+
+# In[10]:
+
+data_train.columns = ['Date','visits']
+
+
+# In[11]:
+
+data_train.head()
+
+
+# In[12]:
+
+pages_repeat = pd.DataFrame(np.repeat(pages,550))
+
+
+# In[13]:
+
+data_train.reset_index(drop=True,inplace=True)
+pages_repeat.reset_index(drop=True,inplace=True)
+
+
+# In[14]:
+
+data_train['Page'] = pages_repeat.Page.copy()
+
+
+# In[15]:
+
+data_train.head()
+
+
+# In[16]:
+
+cols = list(data_train.columns.values)
+cols
+
+
+# In[17]:
+
+data_train = data_train[['Page', 'Date', 'visits']]
+
+
+# In[18]:
+
+data_train.head()
+
+
+# In[19]:
+
+group_by_page = data_train.groupby('Page')
+
+
+# In[20]:
+
+group_by_page.head()
+
+ting the dataset
+
+# In[2]:
+
+dataset = pd.read_csv('train_web.csv')
+# coding: utf-8
+
+# ## time series for web traffic
+
+# In[1]:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+
+# #### Importing the dataset
+
+# In[2]:
+
+dataset = pd.read_csv('train_web.csv')
+
+
+# In[3]:
+
+dataset.head()
+
+
+# In[4]:
+
+dataset.isnull().any().describe()
+
+
+# In[5]:
+
+dataset = dataset.fillna(0)
+
+
+# In[6]:
+
+dataset.isnull().any().describe()
+
+
+# In[7]:
+
+dataset.Page.unique()
+dataset.groupby(['Page']).count()
+
+
+# In[8]:
+
+pages = dataset['Page'].copy()
+dates = dataset.columns
+dataset.drop(['Page'],inplace=True,axis=1)
+
+
+# In[9]:
+
+data_train = dataset.stack().reset_index(level=0, drop=True).reset_index()
+
+
+# In[10]:
+
+data_train.columns = ['Date','visits']
+
+
+# In[11]:
+
+data_train.head()
+
+
+# In[12]:
+
+pages_repeat = pd.DataFrame(np.repeat(pages,550))
+
+
+# In[13]:
+
+data_train.reset_index(drop=True,inplace=True)
+pages_repeat.reset_index(drop=True,inplace=True)
+
+
+# In[14]:
+
+data_train['Page'] = pages_repeat.Page.copy()
+
+
+# In[15]:
+
+data_train.head()
+
+
+# In[16]:
+
+cols = list(data_train.columns.values)
+cols
+
+
+# In[17]:
+
+data_train = data_train[['Page', 'Date', 'visits']]
+
+
+# In[18]:
+
+data_train.head()
+
+
+# In[19]:
+
+group_by_page = data_train.groupby('Page')
+
+
+# In[20]:
+
+group_by_page.head()
+
+
+
+
+# In[3]:
+
+dataset.head()
+
+
+# In[4]:
+
+dataset.isnull().any().describe()
+
+
+# In[5]:
+
+dataset = dataset.fillna(0)
+
+
+# In[6]:
+
+dataset.isnull().any().describe()
+
+
+# In[7]:
+
+dataset.Page.unique()
+dataset.groupby(['Page']).count()
+
+
+# In[8]:
+
+pages = dataset['Page'].copy()
+dates = dataset.columns
+dataset.drop(['Page'],inplace=True,axis=1)
+
+
+# In[9]:
+
+data_train = dataset.stack().reset_index(level=0, drop=True).reset_index()
+
+
+# In[10]:
+
+data_train.columns = ['Date','visits']
+
+
+# In[11]:
+
+data_train.head()
+
+
+# In[12]:
+
+pages_repeat = pd.DataFrame(np.repeat(pages,550))
+
+
+# In[13]:
+
+data_train.reset_index(drop=True,inplace=True)
+pages_repeat.reset_index(drop=True,inplace=True)
+
+
+# In[14]:
+
+data_train['Page'] = pages_repeat.Page.copy()
+
+
+# In[15]:
+
+data_train.head()
+
+
+# In[16]:
+
+cols = list(data_train.columns.values)
+cols
+
+
+# In[17]:
+
+data_train = data_train[['Page', 'Date', 'visits']]
+
+
+# In[18]:
+
+data_train.head()
+
+
+# In[19]:
+
+group_by_page = data_train.groupby('Page')
+
+
+# In[20]:
+
+group_by_page.head()
+
